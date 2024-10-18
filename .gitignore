@@ -1,0 +1,9 @@
+# python
+*.pyc
+__pycache__
+
+# vim
+*.swp
+
+# osx stuff
+.DS_Store
