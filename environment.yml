@@ -41,4 +41,3 @@ dependencies:
       - traitlets==5.14.3
       - urllib3==2.2.3
       - wcwidth==0.2.13
-prefix: /Users/christianmoscardi/ocr/miniconda/envs/sad
