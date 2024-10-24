@@ -4,13 +4,13 @@ services:
       context: backend/docker
       dockerfile: Dockerfile
     volumes:
-      - ./backend/flask:/code
+      - ./backend/api:/code
     command: conda run --no-capture-output -n sad python /code/server.py
     ports:
       - 127.0.0.1:3001:3001
     networks:
       - sadnet
-    restart_policy: always
+    restart: always
 
   ingest:
     build:

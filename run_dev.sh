@@ -36,7 +36,7 @@ echo "done"
 
 echo "$new_dotenv" > .env
 echo "ES_LOCAL_API_KEY=$api_key" >> .env
-cp .env backend/flask/
+cp .env backend/api/
 cp .env backend/ingest/
 
 echo "starting API and running ingest..."
