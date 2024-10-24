@@ -11,17 +11,20 @@ function GetData() {
   };
 
   const fetchData = () => {
-    console.log();
     try {
-      fetch(`/searchdata/${searchInput}`).then((res) =>
+      console.log("well this happens");
+      fetch(`/searchdata/${searchInput}`).then((res) => {
         res.json().then((data) => {
           // Setting a data from api
           setdata(data);
-        })
-      );
+        }).catch(error => { console.log("json decode failed"); console.log(error); });
+      }).catch(error => { console.log("fetch failed"); console.log(error); });
+;
     } catch (error) {
+      console.log("v bad");
       console.log(error);
     }
+    return false;
   };
   const handleSubmit = () => {fetchData()}
 
