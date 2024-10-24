@@ -1,16 +1,17 @@
 services:
   flask:
+    container_name: sad-api
     build:
       context: backend/docker
       dockerfile: Dockerfile
     volumes:
       - ./backend/api:/code
-    command: conda run --no-capture-output -n sad python /code/server.py
     ports:
       - 127.0.0.1:3001:3001
     networks:
       - sadnet
     restart: always
+    command: conda run --no-capture-output -n sad python /code/server.py
 
   ingest:
     build:
@@ -19,9 +20,20 @@ services:
     volumes:
       - ./backend/ingest:/code
       - ./data:/data
-    command: conda run --no-capture-output -n sad python /code/ingest.py
     networks:
       - sadnet
+    command: conda run --no-capture-output -n sad python /code/ingest.py
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./frontend/app:/app
+    ports:
+      - 127.0.0.1:3000:3000
+    networks:
+      - sadnet
+    command: bash -c "mv /deps/node_modules /app/; cd /app; HOST=0.0.0.0 npm start"
 
 networks:
   sadnet:
