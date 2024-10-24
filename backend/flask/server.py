@@ -1,11 +1,15 @@
 # Filename - server.py
+import datetime
+import os
 
 # Import flask and datetime module for showing date and time
+from dotenv import load_dotenv
 from flask import Flask, request
 from flask_restful import Resource, Api 
 
-import datetime
 
+fpath = os.path.dirname(os.path.realpath(__file__))
+load_dotenv(os.path.join(fpath, ".env"))
 
 
 # creating the flask app 
@@ -28,4 +32,4 @@ api.add_resource(DataSearch, '/searchdata/<string:search>')
     
 # Running app
 if __name__ == '__main__':
-    app.run(host='localhost', port=3001, debug=True)
+    app.run(host='0.0.0.0', port=3001, debug=True)

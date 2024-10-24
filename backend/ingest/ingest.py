@@ -11,14 +11,14 @@ This script idempotently loads all pdfs from /data into ES index
 """
 
 def main():
-    es = Elasticsearch("http://localhost:9200",
+    es = Elasticsearch(f"http://{os.environ['ES_LOCAL_CONTAINER_NAME']}:9200",
                        api_key=os.environ["ES_LOCAL_API_KEY"])
     client_info = es.info()
 
     es.indices.delete(index="sad", ignore_unavailable=True)
     es.indices.create(index="sad")
 
-    for fname in glob.glob("data/*.pdf"):
+    for fname in glob.glob("/data/*.pdf"):
         basename = os.path.basename(fname)
         print("loading file", basename)
         doc = pdf.open(fname)
@@ -36,5 +36,9 @@ def main():
 
 
 if __name__ == "__main__":
-    load_dotenv()
+    fpath = os.path.dirname(os.path.realpath(__file__))
+    envpath = os.path.join(fpath, ".env")
+    print(envpath)
+    load_dotenv(envpath)
+    print(os.environ)
     main()

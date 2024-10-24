@@ -1,8 +1,9 @@
 #!/bin/bash
 
-
+set -e
 
 cp env.dev .env
+cp env.dev backend/elasticsearch/.env
 set -a && source .env && set +a
 
 # Create an API key for Elasticsearch
@@ -20,7 +21,9 @@ create_api_key() {
   fi
 }
 
+cd backend/elasticsearch
 docker-compose up --wait
+cd ../..
 
 api_key=`create_api_key $ES_LOCAL_PASSWORD devkey`
 echo "api key is $api_key"
@@ -33,4 +36,8 @@ echo "done"
 
 echo "$new_dotenv" > .env
 echo "ES_LOCAL_API_KEY=$api_key" >> .env
+cp .env backend/flask/
+cp .env backend/ingest/
 
+echo "starting API and running ingest..."
+docker-compose up
