@@ -1,12 +1,10 @@
-name: build-and-test
+name: test
 run-name: ${{ github.actor }} is building and testing
 on: 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: initialize es
-        run: build/initialize_es.sh
       - name: run tests
-        run: docker-compose run backend /code/test.sh
+        run: ./build/run_tests.sh
