@@ -2,4 +2,4 @@
 
 cd /code
 py.test
-conda run --no-capture-output -n sad python /code/test.py
+conda run --no-capture-output -n sad pytest
