@@ -1,10 +1,13 @@
 #!/bin/bash
 
 set -e
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-cp env.dev .env
-cp env.dev backend/elasticsearch/.env
-set -a && source .env && set +a
+PROJECT_BASE=$(readlink -f $SCRIPT_DIR/..)
+
+cp $SCRIPT_DIR/env.dev $PROJECT_BASE/.env
+cp $SCRIPT_DIR/env.dev $PROJECT_BASE/backend/elasticsearch/.env
+set -a && source $PROJECT_BASE/.env && set +a
 
 # Create an API key for Elasticsearch
 # parameter 1: the Elasticsearch password
@@ -22,22 +25,19 @@ create_api_key() {
 }
 
 cd backend/elasticsearch
-docker-compose up --wait
+docker compose up --wait
 cd ../..
 
 api_key=`create_api_key $ES_LOCAL_PASSWORD devkey`
 echo "api key is $api_key"
 echo "(autocopied to .env)"
 
-new_dotenv="`cat .env | grep -v ES_LOCAL_API_KEY`"
+new_dotenv="`cat $PROJECT_BASE/.env | grep -v ES_LOCAL_API_KEY`"
 echo "new dotenv"
 echo "$new_dotenv"
 echo "done"
 
-echo "$new_dotenv" > .env
-echo "ES_LOCAL_API_KEY=$api_key" >> .env
-cp .env backend/api/
-cp .env backend/ingest/
-
-echo "starting API and running ingest..."
-docker-compose up
+echo "$new_dotenv" > $PROJECT_BASE/.env
+echo "ES_LOCAL_API_KEY=$api_key" >> $PROJECT_BASE/.env
+cp $PROJECT_BASE/.env $PROJECT_BASE/backend/api/
+cp $PROJECT_BASE/.env $PROJECT_BASE/backend/ingest/

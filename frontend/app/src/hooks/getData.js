@@ -10,20 +10,23 @@ function GetData() {
     setSearchInput(target.value);
   };
 
-  const fetchData = () => {
-    console.log();
+  const fetchData = (e) => {
+    e.preventDefault();
     try {
-      fetch(`/searchdata/${searchInput}`).then((res) =>
+      fetch(`/searchdata/${searchInput}`).then((res) => {
         res.json().then((data) => {
           // Setting a data from api
-          setdata(data);
-        })
-      );
+          setdata({myData: JSON.stringify(data)});
+        }).catch(error => { console.log("json decode failed"); console.log(error); });
+      }).catch(error => { console.log("fetch failed"); console.log(error); });
+;
     } catch (error) {
+      console.log("v bad");
       console.log(error);
     }
+    return false;
   };
-  const handleSubmit = () => {fetchData()}
+  const handleSubmit = (e) => {fetchData(e)}
 
   return (
     <div className="mt-5">
