@@ -25,7 +25,7 @@ create_api_key() {
 }
 
 cd backend/elasticsearch
-docker-compose up --wait
+docker compose up --wait
 cd ../..
 
 api_key=`create_api_key $ES_LOCAL_PASSWORD devkey`
