@@ -5,6 +5,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      - docker:dind
     steps:
       - uses: actions/checkout@v4
       - name: run tests
