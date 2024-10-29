@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: install docker
         run: |
-          apt-get update
-          apt-get install -y docker.io
+          sudo apt-get update
+          sudo apt-get install -y docker.io
       - name: run tests
         run: ./build/run_tests.sh
