@@ -5,17 +5,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-      docker:
-        image: docker:dind
-        options: --privileged
-        volumes:
-          - /var/run/docker.sock:/var/run/docker.sock:ro
     steps:
       - uses: actions/checkout@v4
-      - name: install docker
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
       - name: run tests
         run: ./build/run_tests.sh
