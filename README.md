@@ -5,7 +5,12 @@
 
 ## Running development environment
 1. Download / install docker
-2. `./run_dev.sh`
+2. `./build/run_dev.sh`
 
+## Shutdown dev environment
+EITHER
+1. kill docker completely
+OR
+2. `./build/shutdown_dev.sh` 
 
 ## TK
