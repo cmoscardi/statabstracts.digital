@@ -33,7 +33,7 @@ services:
       - 127.0.0.1:3000:3000
     networks:
       - sadnet
-    command: bash -c "mv /deps/node_modules /app/; cd /app; HOST=0.0.0.0 npm start"
+    command: bash -c "rm -rf /app/node_modules; mv /deps/node_modules /app/; cd /app; HOST=0.0.0.0 npm start"
 
 networks:
   sadnet:
