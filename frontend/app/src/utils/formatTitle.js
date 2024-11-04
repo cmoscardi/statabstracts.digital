@@ -4,5 +4,5 @@ export default function formatTitle(str) {
   const words = str.split(" ");
   const page = words[words.length - 1];
 
-  return `${year} Cencus, Part ${part}, Page ${page} `;
+  return `${year} Census, Part ${part}, Page ${page} `;
 }
