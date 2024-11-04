@@ -7,15 +7,15 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <header className="App-header">
-        <p className="display-1">Stat Abstract Digital</p>
+      <body className="App-header d-flex justify-content-start">
+        <p className="display-1 mt-5">Stat Abstract Digital</p>
         <p className="display-4 font-italic">
           Accessiblizing The Abstract
         </p>
-        <div>
+        <div className='text-center'>
           <GetData />
         </div>
-      </header>
+      </body>
     </div>
   );
 }
