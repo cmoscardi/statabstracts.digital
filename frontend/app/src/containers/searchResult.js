@@ -41,7 +41,7 @@ export default function SearchResult({ search, result, submission }) {
       return (
         <div className="d-flex flex-column bg-danger rounded mt-2 ">
           <div className="flex-row m-3 p-2 rounded bg-dark text-white">
-            No Restuls Found.
+            No Results Found.
           </div>
         </div>
       );
