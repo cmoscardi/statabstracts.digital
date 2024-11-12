@@ -4,7 +4,7 @@ function IndexPage() {
   return (
     <div>
       <body className="App-bg d-flex justify-content-start">
-        <p className="display-1 mt-5">Stat Abstract Digital</p>
+        <p className="display-1 mt-5">Stat Abstracts Digital</p>
         <p className="display-4 font-italic">
           Accessiblizing The Abstract
         </p>

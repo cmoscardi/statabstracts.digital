@@ -5,6 +5,7 @@ import {Route, Routes} from 'react-router-dom'
 import IndexPage from './pages/indexPage.js';
 import ResultPage from './pages/resultPage.js';
 import NotFoundPage from './pages/notFoundPage.js';
+import AboutPage from './pages/aboutPage.js';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path='/' element={<IndexPage/>}></Route>
         <Route path='/result/:pdfRef' element={<ResultPage/>}></Route>
+        <Route path='/about' element={<AboutPage/>}></Route>
         <Route path='*' element={<NotFoundPage/>}></Route>
       </Routes>
     </div>
