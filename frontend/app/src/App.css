@@ -13,7 +13,7 @@
   }
 }
 
-.App-header {
+.App-bg {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -56,4 +56,24 @@
 
 .container-max-md {
   max-width: 1300px;
+}
+.container-min-md {
+  min-width: 1300px;
+}
+
+@-moz-keyframes spin {
+  to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+  to {transform:rotate(360deg);}
+}
+
+.spin-content {
+  animation: spin 5000ms linear infinite;
+}
+.spin-content-fast {
+  animation: spin 1000ms ease-in-out infinite;
 }
