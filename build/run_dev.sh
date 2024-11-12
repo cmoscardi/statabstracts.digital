@@ -7,4 +7,4 @@ PROJECT_BASE=$(readlink -f $SCRIPT_DIR/..)
 $SCRIPT_DIR/initialize_es.sh
 echo "starting API and running ingest..."
 cd $PROJECT_BASE
-docker compose up
+docker compose up --build
