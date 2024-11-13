@@ -23,6 +23,19 @@ services:
     networks:
       - sadnet
     command: conda run --no-capture-output -n sad python /code/ingest.py
+
+  s3:
+    build:
+      context: backend/docker
+      dockerfile: Dockerfile
+    ports:
+      - 127.0.0.1:4001:4001
+    networks:
+      - sadnet
+    volumes:
+      - ./data:/data
+    command: bash -c "cd /data; python -m http.server 4001"
+
   frontend:
     build:
       context: ./frontend
