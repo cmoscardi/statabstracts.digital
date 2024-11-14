@@ -2,13 +2,13 @@ import React from "react";
 import BuildSearchLink from "../hooks/buildSearchLink";
 
 export default function SearchResult({ search, result, submission }) {
-  console.log(submission?.current);
+  // console.log('Submission current?', submission?.current);
   if (!submission?.current) {
     return;
   }
   const value = result?.myData?.hits?.total?.value;
   const hits = result?.myData?.hits?.hits;
-  //   console.log(result, search, value);
+  // console.log('result, search, hits',result, search, value);
   if (value !== undefined) {
     if (value > 0) {
       return (

@@ -7,7 +7,7 @@ import pprint
 # Import flask and datetime module for showing date and time
 from dotenv import load_dotenv
 from elasticsearch import Elasticsearch
-from flask import Flask, request
+from flask import Flask, request, jsonify, make_response
 from flask_restful import Resource, Api 
 
 
@@ -40,8 +40,22 @@ class DataSearch(Resource):
         return {'myData': results.body}
     def post(self):
         return {'myData':'Posted!'}
-
+    
 api.add_resource(DataSearch, '/searchdata/<string:search>')
+
+    
+class SearchId(Resource):
+    def get(self, id):
+        try:
+            results = es.get(index='sad', id=id).body
+        except Exception:
+            print('ID not found by elastic search.')
+            results = {}
+        return {'myData': results}
+    def post(self):
+        return {'myData':'Posted!'}
+
+api.add_resource(SearchId, '/searchid/<string:id>')
 
     
 # Running app

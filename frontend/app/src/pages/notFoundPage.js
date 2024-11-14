@@ -3,7 +3,7 @@ function NotFoundPage() {
   return (
     <>
       <div className="App-bg d-flex w-100 justify-content-start pt-5 px-5">
-        <div className="w-100 display-3 text-center">
+        <div className="w-75 display-4 text-center">
           Oh my... it appears this page doesn't exist. That's quite sad. Here's
           eggdog to cheer you up!
         </div>
