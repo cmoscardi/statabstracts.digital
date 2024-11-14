@@ -1,7 +1,7 @@
 function AboutPage() {
   return (
-    <div>
-      <body className="App-bg d-flex w-100 justify-content-start pt-5 px-5">
+    <>
+      <div className="App-bg d-flex w-100 justify-content-start pt-5 px-5">
         <div className="w-100 display-1 text-center">Christian Moscardi</div>
         <div className="w-100 text-center">
           Who is Christian Moscardi? Is he a creepy guy living a Victorian era
@@ -47,8 +47,8 @@ function AboutPage() {
             United States
           </a>
         </div>
-      </body>
-    </div>
+      </div>
+    </>
   );
 }
 
