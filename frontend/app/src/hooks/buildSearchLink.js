@@ -6,9 +6,9 @@ import formatTitle from "../utils/formatTitle";
 export default function BuildSearchLink({ hit, search }) {
   const title = hit._source.title;
   const { year, part, page } = formatTitle(title, true);
-  const resultPage = `/result/${year}-${part}-${page}`;
   const formTitle = formatTitle(title);
   const id = hit?._id;
+  const resultPage = `/result/${year}-${part}-${page}?id=${id}`;
   const url = hit._source.url;
   const orig_url = hit._source.orig_url;
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import SearchResult from "../containers/searchResult";
 import getUrlParam from "../utils/getUrlParam";
 import updateUrlParam from "../utils/updateUrlParam";
+import fetchData from "../utils/fetchData";
 
 function GetData() {
   const searchParam = getUrlParam("search");
@@ -10,7 +11,7 @@ function GetData() {
 
   // usestate for setting a javascript
   // object for storing and using data
-  const [data, setdata] = useState({ myData: "Results Appear Here" });
+  const [data, setData] = useState({ myData: "Results Appear Here" });
 
   const [searchInput, setSearchInput] = useState(
     searchParam ? searchParam : ""
@@ -19,32 +20,14 @@ function GetData() {
     setSearchInput(target.value);
   };
 
-  const fetchData = (e) => {
-    e.preventDefault();
-    console.log('called fetch')
-    try {
-      fetch(`/searchdata/${searchInput}`)
-        .then((res) => {
-          res.json().then((data) => {
-            // Setting a data from api
-            setdata({ myData: data });
-            console.log(data)
-          });
-        })
-        .catch((error) => {
-          console.log("fetch failed");
-          console.log(error);
-        });
-    } catch (error) {
-      console.log("v bad");
-      console.log(error);
-    }
-    return false;
-  };
-
   const handleSubmit = (e) => {
     submission.current = true;
-    fetchData(e);
+    e.preventDefault();
+    fetchData(`/searchdata/${searchInput}`).then((res) => {
+      setData({ myData: res })
+    }
+    );
+
     updateUrlParam("search", searchInput);
   };
 

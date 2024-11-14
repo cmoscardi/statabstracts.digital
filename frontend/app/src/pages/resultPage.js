@@ -1,30 +1,28 @@
 import { useLocation } from "react-router-dom";
-import BuildPdf from "../hooks/buildPdf";
+import getUrlParam from "../utils/getUrlParam";
+import BuildResultPage from "../containers/buildResultPage";
+import GetDataById from "../hooks/getDataById";
 
-function ResultPage() {
+export default function ResultPage() {
   const location = useLocation();
-  const { orig_url, title } = location.state;
-  return (
-    <>
-      <div className="App-bg">
-        <div className="d-flex h-95vh  w-100 px-5 flex-column">
-          <div className="flex-row pb-2">
-            <h1>{title}</h1>
-            <div className="d-flex justify-content-center ws-pre-wrap">
-              <div>Original Document: </div> <a href={orig_url} target="_blank" rel="noreferrer">Click Here</a>
-            </div>
-          </div>
-          <div className="row w-100 h-100">
-            <div className="col d-flex justify-content-center border">
-              <div className="row-container">
-                <BuildPdf />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+  console.log("location state:", location.state);
+  // do we have data being passed from the previous page?
+  if (location.state === null) {
+    const paramId = getUrlParam("id");
+    // do we have a 'id' url param?
+    if (paramId) {
+      return <GetDataById paramId={paramId}/>
+    } else {
+      window.location.replace("/404");
+      return null;
+    }
+  } else {
+    // ({ orig_url, title, url, page, id } = location.state);
+    const resultObj = location.state;
+    return (
+      <>
+        <BuildResultPage resultObj={resultObj} />
+      </>
+    );
+  }
 }
-
-export default ResultPage;
