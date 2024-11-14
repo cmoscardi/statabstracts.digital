@@ -77,3 +77,14 @@
 .spin-content-fast {
   animation: spin 1000ms ease-in-out infinite;
 }
+
+.ws-pre-wrap {
+  white-space: pre-wrap;
+}
+
+.row-container {display: flex; width: 100%; height: 100%; flex-direction: column; overflow: hidden;}
+.iframe-container { flex-grow: 1; border: none; margin: 0; padding: 0; }
+
+.h-95vh {
+  height: 95vh;
+}

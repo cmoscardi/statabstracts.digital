@@ -28,6 +28,7 @@ function GetData() {
           res.json().then((data) => {
             // Setting a data from api
             setdata({ myData: data });
+            console.log(data)
           });
         })
         .catch((error) => {
