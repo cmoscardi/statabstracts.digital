@@ -9,7 +9,7 @@ export default function BuildResultPage({ resultObj }) {
             <h1>{title}</h1>
             <div className="d-flex justify-content-center ws-pre-wrap">
               <div>Original Document: </div>{" "}
-              <a href={orig_url} target="_blank" rel="noreferrer">
+              <a href={`${orig_url}#page=${page}`} target="_blank" rel="noreferrer">
                 Click Here
               </a>
             </div>
