@@ -19,7 +19,7 @@ export default function GetDataById({ paramId }) {
           setResultObj({
             url: url,
             page: page,
-            title: title,
+            title: formatTitle(title),
             id: paramId,
             orig_url: orig_url,
           });
