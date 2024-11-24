@@ -1,3 +1,42 @@
+:root {
+  --primary: #0b9eb5;
+  --secondary: #fefff9;
+  --accent: #fe5f55;
+  --accent-light: #faaaa5;
+  --success: #28a745;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #242e33;
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1200px;
+  --breakpoint-xl: 1500px;
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+.bg-secondary {
+  background-color: var(--secondary) !important;
+}
+.bg-accent {
+  background-color: var(--accent) !important;
+}
+.bg-dark {
+  background-color: var(--dark) !important;
+}
+.bg-light {
+  background-color: var(--light) !important;
+}
+
 .App {
   text-align: center;
 }
@@ -14,7 +53,7 @@
 }
 
 .App-bg {
-  background-color: #282c34;
+  background-color: var(--dark);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -24,8 +63,23 @@
   color: white;
 }
 
+.border-bottom-accent {
+  border-bottom: var(--accent) solid 3px;
+}
+
+.title-font {
+  font-family: "Courier New";
+}
+
 .App-link {
   color: #61dafb;
+}
+
+a {
+  color: var(--accent);
+}
+a:hover {
+  color: var(--accent-light);
 }
 
 @keyframes App-logo-spin {
@@ -36,7 +90,6 @@
     transform: rotate(360deg);
   }
 }
-
 
 .text-small {
   font-size: small;
@@ -54,21 +107,27 @@
   font-size: x-large;
 }
 
-.container-max-md {
-  max-width: 1300px;
+.container-max-lg {
+  max-width: var(--breakpoint-lg);
 }
-.container-min-md {
-  min-width: 1300px;
+.container-min-lg {
+  min-width: var(--breakpoint-lg);
 }
 
 @-moz-keyframes spin {
-  to { -moz-transform: rotate(360deg); }
+  to {
+    -moz-transform: rotate(360deg);
+  }
 }
 @-webkit-keyframes spin {
-  to { -webkit-transform: rotate(360deg); }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }
 @keyframes spin {
-  to {transform:rotate(360deg);}
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .spin-content {
@@ -82,19 +141,28 @@
   white-space: pre-wrap;
 }
 
-.row-container {display: flex; width: 100%; height: 100%; flex-direction: column; overflow: hidden;}
-.iframe-container { flex-grow: 1; border: none; margin: 0; padding: 0; }
+.row-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+}
+.iframe-container {
+  flex-grow: 1;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
 
 .h-95vh {
   height: 95vh;
 }
 
-
-
 /* Loading Ring css */
 .lds-ring {
   /* change color here */
-  color: #ffffff
+  color: #ffffff;
 }
 .lds-ring,
 .lds-ring div {

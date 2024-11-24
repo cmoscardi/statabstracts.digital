@@ -6,7 +6,7 @@ export default function Navbar() {
   const path = useLocation().pathname;
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+      <nav className="navbar navbar-expand-lg navbar-light bg-secondary sticky-top border-bottom-accent">
         <a className="navbar-brand" href="/">
           SAD
         </a>

@@ -3,11 +3,11 @@ function AboutPage() {
     <>
       <div className="App-bg d-flex w-100 justify-content-start pt-5 px-5">
         <div className="w-100 display-1 text-center">Christian Moscardi</div>
-        <div className="w-100 text-center">
+        <div className="w-100 text-center container-max-lg">
           Who is Christian Moscardi? Is he a creepy guy living a Victorian era
           lifestyle in 2024? Well if you ask Chat GPT, it would seem so.
         </div>
-        <div className="p-5">
+        <div className="p-5 text-left">
           <p>
             Christian, a man of peculiar disposition, resides in the shadows of
             his own sorrow, where the very air seems thick with a whispering
@@ -37,7 +37,7 @@ function AboutPage() {
             his own to begin with.
           </p>
         </div>
-        <div>
+        <div className="m-3">
           To learn more about this project check out Christian's blog post: <br/>
           <a
             href="https://www.christianmoscardi.com/blog/2024/10/03/digitizing-us-statistical-abstracts.html"
