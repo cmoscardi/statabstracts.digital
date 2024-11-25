@@ -11,4 +11,6 @@ __pycache__
 # env should not be committed
 .env
 
+# node / js stuff
 node_modules
+frontend/app/build
