@@ -5,7 +5,7 @@ export default function fetchData(fetchUrl) {
         .then((res) => {
           res.json().then((data) => {
             // Setting a data from api
-            console.log("fetchData.js", data);
+            console.log("fetchData.js", data, Date.now());
             resolve(data);
           });
         })

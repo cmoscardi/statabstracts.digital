@@ -6,7 +6,6 @@ import fetchData from "../utils/fetchData";
 
 function GetData() {
   const searchParam = getUrlParam("search");
-
   let submission = useRef(false);
 
   // usestate for setting a javascript
@@ -24,10 +23,8 @@ function GetData() {
     submission.current = true;
     e.preventDefault();
     fetchData(`/searchdata/${searchInput}`).then((res) => {
-      setData({ myData: res })
-    }
-    );
-
+      setData({ myData: res });
+    });
     updateUrlParam("search", searchInput);
   };
 
@@ -35,12 +32,23 @@ function GetData() {
     submission.current = false;
   }, [data]);
 
+  window.addEventListener("load", () => {
+    if (searchParam) {
+      const loadEvent = new Event("newLoad");
+      handleSubmit(loadEvent);
+    }
+  });
+
   return (
     <div className="mt-5">
       <header>
         <h1>Explore Census Data</h1>
         <form onSubmit={handleSubmit}>
-          <input onChange={handleOnChange} value={searchInput}></input>
+          <input
+            onChange={handleOnChange}
+            value={searchInput}
+            className="w-75 container-max-sm"
+          ></input>
           <button type="submit">Search</button>
         </form>
         <SearchResult

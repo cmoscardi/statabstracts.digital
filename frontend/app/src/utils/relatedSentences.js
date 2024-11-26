@@ -137,7 +137,7 @@ export default function relatedSentences(str, search, topN) {
   );
 
   sentences.forEach((sentence) => {
-    if (searchWords.some((el) => sentence.includes(el))) {
+    if (searchWords.some((el) => sentence.split(' ').includes(el))) {
       matches.push(sentence);
     }
   });

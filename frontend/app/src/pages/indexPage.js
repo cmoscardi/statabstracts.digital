@@ -8,7 +8,7 @@ function IndexPage() {
           <p className="display-1 mt-5">Stat Abstracts Digital</p>
           <p className="display-4 font-italic">Accessiblizing The Abstract</p>
         </div>
-        <div className="text-center">
+        <div className="text-center w-100">
           <GetData />
         </div>
       </div>

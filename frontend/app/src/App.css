@@ -113,6 +113,18 @@ a:hover {
 .container-min-lg {
   min-width: var(--breakpoint-lg);
 }
+.container-max-md {
+  max-width: var(--breakpoint-md);
+}
+.container-min-md {
+  min-width: var(--breakpoint-md);
+}
+.container-max-sm {
+  max-width: var(--breakpoint-sm);
+}
+.container-min-md {
+  min-width: var(--breakpoint-sm);
+}
 
 @-moz-keyframes spin {
   to {

@@ -12,7 +12,7 @@ export default function SearchResult({ search, result, submission }) {
   if (value !== undefined) {
     if (value > 0) {
       return (
-        <div className="d-flex flex-column bg-secondary rounded mt-2 container-max-lg">
+        <div className="d-flex flex-column bg-secondary rounded mt-2 container-max-lg mx-auto">
           {hits.map((hit, i) => (
             <BuildSearchLink key={i} hit={hit} search={search} />
           ))}
