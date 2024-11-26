@@ -20,7 +20,7 @@ jobs:
         run: ./build/build_frontend.sh
       - uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ env.DO_IP }}
+          host: ${{ vars.DO_IP }}
           username: root
           key: ${{ secrets.DO_PRIVATE_KEY }}
           overwrite: true
