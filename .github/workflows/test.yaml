@@ -13,7 +13,7 @@ jobs:
 #        run: ./build/run_tests.sh
   frontend:
     runs-on: ubuntu-latest
-    environment: production
+    environment: prod
     steps:
       - uses: actions/checkout@v4
       - name: build frontend
