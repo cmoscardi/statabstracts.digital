@@ -13,7 +13,16 @@ jobs:
 #        run: ./build/run_tests.sh
   frontend:
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - uses: actions/checkout@v4
       - name: build frontend
         run: ./build/build_frontend.sh
+      - uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ env.DO_IP }}
+          username: root
+          key: ${{ env.DO_PRIVATE_KEY }}
+          overwrite: true
+          source: "frontend/app/build"
+          target: "/root/build"
