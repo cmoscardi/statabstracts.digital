@@ -6,7 +6,7 @@
   --success: #28a745;
   --info: #17a2b8;
   --warning: #ffc107;
-  --danger: #dc3545;
+  --danger: #b7636c;
   --light: #f8f9fa;
   --dark: #242e33;
   --breakpoint-xs: 0;
@@ -35,6 +35,9 @@
 }
 .bg-light {
   background-color: var(--light) !important;
+}
+.bg-danger {
+  background-color: var(--danger) !important;
 }
 
 .App {

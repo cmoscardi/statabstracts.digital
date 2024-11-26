@@ -21,8 +21,8 @@ export default function SearchResult({ search, result, submission }) {
     }
     if (value === 0) {
       return (
-        <div className="d-flex flex-column bg-danger rounded mt-2 ">
-          <div className="flex-row m-3 p-2 rounded bg-dark text-white">
+        <div className="d-flex flex-column bg-danger rounded mt-2 container-max-md mx-auto">
+          <div className="flex-row m-3 p-4 rounded bg-dark text-white">
             No Results Found.
           </div>
         </div>
