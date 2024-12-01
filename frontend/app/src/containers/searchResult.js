@@ -1,11 +1,7 @@
 import React from "react";
 import BuildSearchLink from "../hooks/buildSearchLink";
 
-export default function SearchResult({ search, result, submission }) {
-  // console.log('Submission current?', submission?.current);
-  if (!submission?.current) {
-    return;
-  }
+export default function SearchResult({ search, result }) {
   const value = result?.myData?.hits?.total?.value;
   const hits = result?.myData?.hits?.hits;
   // console.log('result, search, hits',result, search, value);
