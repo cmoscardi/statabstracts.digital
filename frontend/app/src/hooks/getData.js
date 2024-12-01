@@ -3,41 +3,52 @@ import SearchResult from "../containers/searchResult";
 import getUrlParam from "../utils/getUrlParam";
 import updateUrlParam from "../utils/updateUrlParam";
 import fetchData from "../utils/fetchData";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 function GetData() {
-  const searchParam = getUrlParam("search");
-  let submission = useRef(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  let searchParam = searchParams.get("search");
+  console.log("searchParam:", searchParam);
 
   // usestate for setting a javascript
   // object for storing and using data
   const [data, setData] = useState({ myData: "Results Appear Here" });
 
-  const [searchInput, setSearchInput] = useState(
-    searchParam ? searchParam : ""
-  );
+  const [searchInput, setSearchInput] = useState(searchParam || "");
   const handleOnChange = ({ target }) => {
     setSearchInput(target.value);
   };
 
+  const [enteredValue, setEnteredValue] = useState("");
+
   const handleSubmit = (e) => {
-    submission.current = true;
     e.preventDefault();
+    setEnteredValue(searchInput);
     fetchData(`/searchdata/${searchInput}`).then((res) => {
       setData({ myData: res });
     });
-    updateUrlParam("search", searchInput);
+    console.log("called handle submit");
+    setSearchParams((prev) => {
+      console.log("prev.get", prev.get("search"));
+      prev.set("search", searchInput);
+      return prev;
+    });
   };
 
   useEffect(() => {
-    submission.current = false;
-  }, [data]);
-
-  window.addEventListener("load", () => {
     if (searchParam) {
-      const loadEvent = new Event("newLoad");
-      handleSubmit(loadEvent);
+      setEnteredValue(searchParam);
+      setSearchInput(searchParam);
+      fetchData(`/searchdata/${searchParam}`).then((res) => {
+        setData({ myData: res });
+      });
     }
-  });
+    else {
+      setEnteredValue('');
+      setSearchInput('');
+      setData({})
+    }
+  }, [searchParam]);
 
   return (
     <div className="mt-5">
@@ -51,11 +62,7 @@ function GetData() {
           ></input>
           <button type="submit">Search</button>
         </form>
-        <SearchResult
-          search={searchInput}
-          result={data.myData}
-          submission={submission}
-        />
+        <SearchResult search={enteredValue} result={data.myData} />
       </header>
     </div>
   );
