@@ -26,3 +26,10 @@ jobs:
           overwrite: true
           source: "frontend/app/build"
           target: "/root/build"
+      - uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ vars.DO_IP }}
+          username: root
+          key: ${{ secrets.DO_PRIVATE_KEY }}
+          script: cp -r /root/build/frontend/app/build/* /var/www/sad/
+
