@@ -3,9 +3,33 @@ run-name: ${{ github.actor }} is building and testing
 on: 
   pull_request:
 jobs:
-  test:
+  backend:
     runs-on: ubuntu-latest
     steps:
+      - name: say hi
+        run: echo hi 
+#      - uses: actions/checkout@v4
+#      - name: run tests
+#        run: ./build/run_tests.sh
+  frontend:
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
       - uses: actions/checkout@v4
-      - name: run tests
-        run: ./build/run_tests.sh
+      - name: build frontend
+        run: ./build/build_frontend.sh
+      - uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ vars.DO_IP }}
+          username: root
+          key: ${{ secrets.DO_PRIVATE_KEY }}
+          overwrite: true
+          source: "frontend/app/build"
+          target: "/root/build"
+      - uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ vars.DO_IP }}
+          username: root
+          key: ${{ secrets.DO_PRIVATE_KEY }}
+          script: cp -r /root/build/frontend/app/build/* /var/www/sad/
+
