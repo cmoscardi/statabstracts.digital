@@ -1,7 +1,9 @@
-name: test
-run-name: ${{ github.actor }} is building and testing
-on: 
-  pull_request:
+name: deploy
+run-name: ${{ github.actor }} is building and deploying
+on:
+  push:
+    branches:
+      - main
 jobs:
   backend:
     runs-on: ubuntu-latest
