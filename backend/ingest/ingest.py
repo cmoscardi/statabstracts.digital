@@ -36,7 +36,7 @@ def main(base_url):
         edition = (year - BASE_YEAR_MAPPING[0]) + BASE_YEAR_MAPPING[1]
         published_year = year + 1
 
-        url = BASE_URL + f"/{basename}"
+        url = base_url + f"/{basename}"
         orig_url = BASE_ORIG_URL.format(published_year=published_year,
                                         edition=edition,
                                         fname=basename)
