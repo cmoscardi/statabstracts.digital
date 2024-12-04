@@ -1,6 +1,7 @@
 import glob
 import os
 from pprint import pprint
+import sys
 
 from dotenv import load_dotenv
 from elasticsearch import Elasticsearch
@@ -14,10 +15,13 @@ This script idempotently loads all pdfs from /data into ES index
 BASE_YEAR_MAPPING = (1940, 62)
 
 
-BASE_URL = "http://localhost:4001"
+DEV_BASE_URL = "http://localhost:4001"
+PROD_BASE_URL = "https://sad.nyc3.digitaloceanspaces.com"
+
+
 BASE_ORIG_URL = "https://www2.census.gov/library/publications/{published_year}/compendia/statab/{edition}ed/{fname}"
 
-def main():
+def main(base_url):
     es = Elasticsearch(f"http://{os.environ['ES_LOCAL_CONTAINER_NAME']}:9200",
                        api_key=os.environ["ES_LOCAL_API_KEY"])
     client_info = es.info()
@@ -54,9 +58,15 @@ def main():
 
 
 if __name__ == "__main__":
+    dev_or_prod = sys.argv[1] if len(sys.argv) > 1 else None
+    if dev_or_prod == "--prod":
+        base_url = PROD_BASE_URL
+    else:
+        base_url = DEV_BASE_URL
+
     fpath = os.path.dirname(os.path.realpath(__file__))
     envpath = os.path.join(fpath, ".env")
-    print(envpath)
+    #print(envpath)
     load_dotenv(envpath)
-    print(os.environ)
-    main()
+    #print(os.environ)
+    main(base_url)
