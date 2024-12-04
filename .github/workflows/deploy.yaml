@@ -8,11 +8,18 @@ jobs:
   backend:
     runs-on: ubuntu-latest
     steps:
-      - name: say hi
-        run: echo hi 
-#      - uses: actions/checkout@v4
-#      - name: run tests
-#        run: ./build/run_tests.sh
+      - uses: actions/checkout@v4
+      #- name: run tests
+      #  run: ./build/run_tests.sh
+      - uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ vars.DO_IP }}
+          username: root
+          key: ${{ secrets.DO_PRIVATE_KEY }}
+          overwrite: true
+          source: "*"
+          target: "/root/statabstracts.digital"
+
   frontend:
     runs-on: ubuntu-latest
     environment: prod
