@@ -2,12 +2,12 @@ function AboutPage() {
   return (
     <>
       <div className="App-bg d-flex w-100 justify-content-start pt-5 px-5">
-        <div className="w-100 display-1 text-center">Christian Moscardi</div>
+        <div className="w-100 display-2 text-center">Christian Moscardi</div>
         <div className="w-100 text-center container-max-lg">
           Who is Christian Moscardi? Is he a creepy guy living a Victorian era
           lifestyle in 2024? Well if you ask Chat GPT, it would seem so.
         </div>
-        <div className="p-5 text-left">
+        <div className="p-5 text-start">
           <p>
             Christian, a man of peculiar disposition, resides in the shadows of
             his own sorrow, where the very air seems thick with a whispering
