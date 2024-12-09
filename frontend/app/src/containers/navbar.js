@@ -9,7 +9,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="navbar navbar-expand-md navbar-light bg-secondary sticky-top border-bottom-accent px-3">
-        <a className="navbar-brand rounded p-1 bg-accent " href="/">
+        <a className="navbar-brand rounded px-1 py-0 bg-accent " href="/">
           <img src={sadLogo} alt="SAD logo" className="logo"/>
         </a>
         <button
