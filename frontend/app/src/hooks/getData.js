@@ -54,13 +54,13 @@ function GetData() {
     <div className="mt-5">
       <header>
         <h1>Explore Census Data</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="d-flex justify-content-center">
           <input
             onChange={handleOnChange}
             value={searchInput}
             className="w-75 container-max-sm"
           ></input>
-          <button type="submit">Search</button>
+          <button type="submit" className="btn btn-light fw-bold p-3">Search</button>
         </form>
         <SearchResult search={enteredValue} result={data.myData} />
       </header>
