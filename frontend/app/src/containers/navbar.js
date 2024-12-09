@@ -1,14 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import sadLogo from "../assets/sadLogo.png";
+
 
 export default function Navbar() {
   const path = useLocation().pathname;
   return (
     <>
       <nav className="navbar navbar-expand-md navbar-light bg-secondary sticky-top border-bottom-accent px-3">
-        <a className="navbar-brand" href="/">
-          SAD
+        <a className="navbar-brand rounded p-1 bg-accent " href="/">
+          <img src={sadLogo} alt="SAD logo" className="logo"/>
         </a>
         <button
           className="navbar-toggler"

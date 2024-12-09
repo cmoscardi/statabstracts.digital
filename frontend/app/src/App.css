@@ -66,6 +66,11 @@
   color: white;
 }
 
+.logo{
+  max-height: 35px;
+  border-radius: 4px;
+}
+
 .border-bottom-accent {
   border-bottom: var(--accent) solid 3px;
 }
