@@ -1,6 +1,10 @@
 export default function relatedSentences(str, search, topN) {
   let searchWords = search.split(" ");
-  const sentences = str.split(/(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s/);
+  const joinLines = str.replace(/\n/g, " "); // replace newlines with spaces
+  const regexNums = /[\d,().\s\n]{10,}/g; // matches sequences of numbers 15 characters or more ie ",202 ,204 ,205 , \n 205 ,206 ,207 (234)" helps with table data
+  const strNoNums = joinLines.replace(regexNums, '') // remove long strings to help generate better sentences
+  console.log(strNoNums)
+  const sentences = strNoNums.split(/(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s/);
   const matches = [];
   const stopWords = [
     "i",
