@@ -2,6 +2,7 @@ import glob
 import os
 from pprint import pprint
 import sys
+import io
 
 from dotenv import load_dotenv
 from elasticsearch import Elasticsearch
@@ -13,20 +14,19 @@ import requests
 This script idempotently loads all pdfs from /data into ES index
 """
 
-# 1940 is 62nd edition
-BASE_YEAR_MAPPING = (1940, 62)
 
 
-DEV_BASE_URL = "http://localhost:4001"
+DEV_BASE_URL = "http://s3:4001"
 PROD_BASE_URL = "https://sad.nyc3.digitaloceanspaces.com"
 
 
-BASE_ORIG_URL = "https://www2.census.gov/library/publications/{published_year}/compendia/statab/{edition}ed/{fname}"
-
 def main(base_url):
-    metrics = pd.read_csv(requests.get(base_url + "/page_metrics_with_url.csv").text)
+
+    metrics = pd.read_csv(io.StringIO(requests.get(base_url + "/page_metrics_with_url.csv").text))
     fnames = (metrics['fchunk'] + '.pdf').unique()
     orig_urls = metrics.drop_duplicates(subset=['fchunk']).set_index("fchunk")["url"]
+    confidences = metrics.set_index(["fchunk", "page"])["confidence"]
+
     es = Elasticsearch(f"http://{os.environ['ES_LOCAL_CONTAINER_NAME']}:9200",
                        api_key=os.environ["ES_LOCAL_API_KEY"])
     client_info = es.info()
@@ -35,23 +35,26 @@ def main(base_url):
     es.indices.create(index="sad")
 
     for fname in fnames:
-        basename = os.path.basename(fname)
-        print("loading file", basename)
-        year = int(basename.split("-")[0])
-        edition = (year - BASE_YEAR_MAPPING[0]) + BASE_YEAR_MAPPING[1]
-        published_year = year + 1
+        print("loading file", fname)
+        fchunk = fname.split(".")[0]
 
-        url = base_url + f"/{basename}"
-        orig_url = BASE_ORIG_URL.format(published_year=published_year,
-                                        edition=edition,
-                                        fname=basename)
+        ingest_url = base_url + "/" + fname
+        # sorry
+        if base_url == DEV_BASE_URL:
+            public_url = ingest_url.replace("s3", "localhost")
+        else:
+            public_url = ingest_url
 
-        doc = pdf.open(fname)
+        orig_url = orig_urls.loc[fchunk]
+
+        resp = requests.get(ingest_url)
+        doc = pdf.Document(stream=resp.content)
         for i, page in enumerate(doc):
-            to_load = {"title": f"{basename} page {i}",
+            to_load = {"title": f"{fname} page {i}",
                        "contents": page.get_text(),
-                       "url": url,
-                       "orig_url": orig_url}
+                       "url": public_url,
+                       "orig_url": orig_url,
+                       "confidence": float(confidences.loc[fchunk, i])}
             response = es.index(index="sad",
                                 body=to_load)
             if response['result'] != 'created':
