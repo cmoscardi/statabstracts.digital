@@ -50,11 +50,17 @@ def main(base_url):
         resp = requests.get(ingest_url)
         doc = pdf.Document(stream=resp.content)
         for i, page in enumerate(doc):
+            try:
+                confidence = float(confidences.loc[fchunk, i])
+            except KeyError:
+                print(f"error with {fchunk} page {i}")
+                confidence = 0.0
+
             to_load = {"title": f"{fname} page {i}",
                        "contents": page.get_text(),
                        "url": public_url,
                        "orig_url": orig_url,
-                       "confidence": float(confidences.loc[fchunk, i])}
+                       "confidence": confidence}
             response = es.index(index="sad",
                                 body=to_load)
             if response['result'] != 'created':
