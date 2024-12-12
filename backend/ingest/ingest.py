@@ -5,7 +5,9 @@ import sys
 
 from dotenv import load_dotenv
 from elasticsearch import Elasticsearch
+import pandas as pd
 import pymupdf as pdf
+import requests
 
 """
 This script idempotently loads all pdfs from /data into ES index
@@ -22,6 +24,9 @@ PROD_BASE_URL = "https://sad.nyc3.digitaloceanspaces.com"
 BASE_ORIG_URL = "https://www2.census.gov/library/publications/{published_year}/compendia/statab/{edition}ed/{fname}"
 
 def main(base_url):
+    metrics = pd.read_csv(requests.get(base_url + "/page_metrics_with_url.csv").text)
+    fnames = (metrics['fchunk'] + '.pdf').unique()
+    orig_urls = metrics.drop_duplicates(subset=['fchunk']).set_index("fchunk")["url"]
     es = Elasticsearch(f"http://{os.environ['ES_LOCAL_CONTAINER_NAME']}:9200",
                        api_key=os.environ["ES_LOCAL_API_KEY"])
     client_info = es.info()
@@ -29,7 +34,7 @@ def main(base_url):
     es.indices.delete(index="sad", ignore_unavailable=True)
     es.indices.create(index="sad")
 
-    for fname in glob.glob("/data/*.pdf"):
+    for fname in fnames:
         basename = os.path.basename(fname)
         print("loading file", basename)
         year = int(basename.split("-")[0])
@@ -56,13 +61,13 @@ def main(base_url):
 
 
 
-
 if __name__ == "__main__":
     dev_or_prod = sys.argv[1] if len(sys.argv) > 1 else None
     if dev_or_prod == "--prod":
         base_url = PROD_BASE_URL
     else:
         base_url = DEV_BASE_URL
+
 
     fpath = os.path.dirname(os.path.realpath(__file__))
     envpath = os.path.join(fpath, ".env")
