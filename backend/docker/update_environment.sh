@@ -5,6 +5,6 @@
 
 set -e
 
-conda env export > environment.yml
+#conda env export > environment.yml
 sed -ie 's/=\([^=].*\)=.*/=\1/' environment.yml
 sed -ie 's/^.*prefix.*//' environment.yml
