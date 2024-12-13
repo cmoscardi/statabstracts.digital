@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import firstXWords from "../utils/firstXWords";
-import relatedSentences from "../utils/relatedSentences";
+import RelatedSentences from "../utils/relatedSentences";
 import formatTitle from "../utils/formatTitle";
 
 export default function BuildSearchLink({ hit, search }) {
@@ -44,7 +44,7 @@ export default function BuildSearchLink({ hit, search }) {
           <div className="py-1 text-bold">
             Related Content:
             <div className="text-small">
-              {relatedSentences(hit._source.contents, search, 3)}
+              <RelatedSentences str={hit._source.contents} search={search} topN={3} />
             </div>
           </div>
         </div>
