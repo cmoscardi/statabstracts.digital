@@ -70,6 +70,9 @@
 
 .highlighted {background-color: var(--primary-dark); color: #FFF}
 
+.link-only-hover {text-decoration: none;}
+.link-only-hover:hover {text-decoration: underline; color: var(--accent-light);}
+
 .logo{
   max-height: 35px;
   border-radius: 4px;

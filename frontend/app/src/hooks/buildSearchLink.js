@@ -32,6 +32,7 @@ export default function BuildSearchLink({ hit, search }) {
           toResultPage();
         }}
         href={resultPage}
+        className="link-only-hover"
       >
         <div className="flex-row m-3 p-4 rounded bg-dark text-white text-start">
           <div className="h4 pt-1">{formTitle}</div>
