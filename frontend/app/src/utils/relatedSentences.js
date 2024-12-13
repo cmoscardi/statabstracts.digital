@@ -1,10 +1,17 @@
-export default function relatedSentences(str, search, topN) {
+import HighlightSubstrings from "./highlightText";
+
+export default function RelatedSentences({ str, search, topN }) {
+  // str = the full text returned by elastic search, this is the entire pdf's text
+  // search = the term the user searched for
+  // topN = the number of matches that should be shown, if this is 3 then this will return 3 setences related to the search term
+
   let searchWords = search.split(" ");
   const joinLines = str.replace(/\n/g, " "); // replace newlines with spaces
   const regexNums = /[\d,().\s\n]{10,}/g; // matches sequences of numbers 15 characters or more ie ",202 ,204 ,205 , \n 205 ,206 ,207 (234)" helps with table data
-  const strNoNums = joinLines.replace(regexNums, '') // remove long strings to help generate better sentences
-  console.log(strNoNums)
-  const sentences = strNoNums.split(/(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s/);
+  const strNoNums = joinLines.replace(regexNums, ""); // remove long strings to help generate better sentences
+  const sentences = strNoNums.split(
+    /(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s/
+  );
   const matches = [];
   const stopWords = [
     "i",
@@ -141,18 +148,29 @@ export default function relatedSentences(str, search, topN) {
   );
 
   sentences.forEach((sentence) => {
-    if (searchWords.some((el) => sentence.split(' ').includes(el))) {
+    if (searchWords.some((el) => sentence.split(" ").includes(el))) {
       matches.push(sentence);
     }
   });
 
   const firstN = matches.slice(0, topN);
-
+  console.log("FirstN:", firstN);
   if (firstN.length === 0) {
-    return "No exact matches found.";
-  } else if (firstN.length <= topN) {
-    return firstN.join(" ... ");
+    return <span>No exact matches found.</span>;
   } else {
-    return firstN.slice(0, topN).join(" ... ");
+    return (
+      <>
+        {firstN.map((text, index) => {
+          return (
+              <HighlightSubstrings
+                key={index}
+                text={text}
+                search={search}
+                keyWords = {searchWords}
+              />
+          );
+        })}
+      </>
+    );
   }
 }
