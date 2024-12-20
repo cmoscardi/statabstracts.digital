@@ -7,12 +7,20 @@ export default function BuildResultPage({ resultObj }) {
         <div className="d-flex h-95vh  w-100 px-5 flex-column">
           <div className="flex-row pb-2">
             <h1>{title}</h1>
-            <div className="d-flex justify-content-center ws-pre-wrap">
-              <div>Original Document: </div>{" "}
-              <a href={`${orig_url}#page=${page}`} target="_blank" rel="noreferrer">
-                Click Here
-              </a>
-            </div>
+            {orig_url.length > 0 ? (
+              <div className="d-flex justify-content-center ws-pre-wrap">
+                <div>Original Document: </div>{" "}
+                <a
+                  href={`${orig_url}#page=${page}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Click Here
+                </a>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="row w-100 h-100">
             <div className="col d-flex justify-content-center border">
