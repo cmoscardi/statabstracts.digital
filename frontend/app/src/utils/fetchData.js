@@ -5,6 +5,7 @@ export default function fetchData(fetchUrl) {
     try {
       fetch(fetchUrl)
         .then((res) => {
+          console.log('my res ******', res)
           if(IsValidJson(res)) {
             try{
               res.json().then((data) => {
