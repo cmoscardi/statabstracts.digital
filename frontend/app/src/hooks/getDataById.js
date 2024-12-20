@@ -27,13 +27,13 @@ export default function GetDataById({ paramId }) {
           fetchSuccess.current = true;
         } else {
           awaitingFetch.current = false;
-          setResultObj({})
+          setResultObj({});
         }
       })
       .catch(() => {
         console.log(`Fetching for id "${paramId}" failed`);
         awaitingFetch.current = false;
-        setResultObj({})
+        setResultObj({});
       });
   }, [paramId]);
 
@@ -41,13 +41,18 @@ export default function GetDataById({ paramId }) {
     <div>
       {awaitingFetch.current ? (
         <div className="App-bg">
-            <div className="m-2">Loading Results</div>
-            <LoadingRing/>
+          <div className="m-2">Loading Results For ID '{paramId}'</div>
+          <LoadingRing />
         </div>
       ) : fetchSuccess.current ? (
         <BuildResultPage resultObj={resultObj} />
       ) : (
-        <div className="App-bg">We couldn't find any results matching id: '{paramId}'</div>
+        <>
+          <div className="App-bg">
+            <div>We couldn't find any results matching ID: '{paramId}'</div>
+            <div>Try <a href={window.location.pathname}> this page </a> instead!</div>
+          </div>
+        </>
       )}
     </div>
   );

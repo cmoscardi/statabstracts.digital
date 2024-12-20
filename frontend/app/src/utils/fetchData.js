@@ -3,11 +3,17 @@ export default function fetchData(fetchUrl) {
     try {
       fetch(fetchUrl)
         .then((res) => {
-          res.json().then((data) => {
-            // Setting a data from api
-            console.log("fetchData.js", data, Date.now());
-            resolve(data);
-          });
+          try{
+            res.json().then((data) => {
+              // Setting a data from api
+              console.log("fetchData.js", data, Date.now());
+              resolve(data);
+            });
+          } catch (error) {
+            console.log("JSON Error");
+            console.log(error);
+            resolve({ myData: {} });
+          }
         })
         .catch((error) => {
           console.log("fetch failed");
