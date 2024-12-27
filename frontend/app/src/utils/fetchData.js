@@ -1,12 +1,10 @@
-import IsValidJson from "./isValidJson";
-
 export default function fetchData(fetchUrl) {
   return new Promise((resolve) => {
     try {
       fetch(fetchUrl)
         .then((res) => {
           console.log('my res ******', res)
-          if(IsValidJson(res)) {
+          if(res.ok) {
             try{
               res.json().then((data) => {
                 // Setting a data from api

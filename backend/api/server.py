@@ -23,8 +23,6 @@ app = Flask(__name__)
 api = Api(app) 
 
 
-
-
 class DataSearch(Resource):
     def get(self, search):
         results = es.search(
@@ -51,7 +49,7 @@ class SearchId(Resource):
         except Exception:
             print('ID not found by elastic search.')
             results = {}
-        return {'myData': results}
+        return jsonify({'myData': results})
     def post(self):
         return {'myData':'Posted!'}
 
